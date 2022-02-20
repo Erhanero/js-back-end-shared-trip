@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const res = require("express/lib/response");
 const { SECRET_TOKEN } = require("../constants");
 
-async function register({ firstName, lastName, email, password }) {
+async function register({ email, password, gender }) {
     const hashedPassword = await bcrypt.hash(password, 10);
     const existing = await User.findOne({ email });
 
@@ -12,7 +12,7 @@ async function register({ firstName, lastName, email, password }) {
         throw new Error("Email is taken!");
     }
 
-    const user = await User.create({ firstName, lastName, email, hashedPassword });
+    const user = await User.create({ email, hashedPassword, gender });
     return createToken(user);
 
 }
@@ -39,9 +39,8 @@ function createToken(user) {
 
     const payload = {
         _id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email
+        email: user.email,
+        gender: user.gender,
     }
 
     const token = jwt.sign(payload, SECRET_TOKEN);

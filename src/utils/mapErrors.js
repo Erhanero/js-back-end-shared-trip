@@ -5,7 +5,7 @@ function mapErrors(err) {
         return Object.values(err.errors).map(e => ({ msg: e.message }));
 
     } else if (typeof err.message == "string") {
-        return [{ msg: "Request error" }]
+        return [{ msg: err.message }]
     };
 
 

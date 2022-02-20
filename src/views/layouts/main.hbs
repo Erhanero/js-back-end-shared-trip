@@ -9,11 +9,14 @@
 <body>
     <!-- In case of error, you should display div with class "error" -->
     <!-- You can choose to display the first error or all of them (error message/s in your opinion) -->
+    {{#if errors}}
+    <div class="error">
+        {{#each errors}}
+        <p>{{msg}}</p>
+        {{/each}}
 
-    <!-- <div class="error">
-        <p>Error message - 1</p>
-        <p>Error message - 2</p>
-    </div> -->
+    </div>
+    {{/if}}
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
@@ -26,27 +29,27 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Guest users and Logged users -->
                     <li class="nav-item">
-                        <a class="nav-link" href="">Home</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Shared Trips</a>
+                        <a class="nav-link" href="/trips/shared">Shared Trips</a>
                     </li>
                     <!-- Logged users -->
                     <li class="nav-item">
-                        <a class="nav-link" href="">Offer Trip</a>
+                        <a class="nav-link" href="/trips/offer">Offer Trip</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Profile</a>
+                        <a class="nav-link" href="/profile">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Logout as [ test@abv.bg ]</a>
+                        <a class="nav-link" href="/logout">Logout as [ test@abv.bg ]</a>
                     </li>
                     <!-- Guest users -->
                     <li class="nav-item">
-                        <a class="nav-link" href="">Login</a>
+                        <a class="nav-link" href="/login">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Register</a>
+                        <a class="nav-link" href="/register">Register</a>
                     </li>
                 </ul>
             </div>
