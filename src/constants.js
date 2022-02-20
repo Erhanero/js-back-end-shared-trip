@@ -1,0 +1,1 @@
+module.exports.SECRET_TOKEN = "DNKJ4H5N269D34EH4JDK3";
