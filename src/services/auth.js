@@ -36,7 +36,6 @@ async function login(email, password) {
 
 function createToken(user) {
 
-
     const payload = {
         _id: user._id,
         email: user.email,

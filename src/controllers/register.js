@@ -10,6 +10,7 @@ router.get("/register", (req, res) => {
 
 router.post("/register", async (req, res) => {
     try {
+
         if (req.body.password.trim() == "") {
             throw new Error("Password is required")
 
@@ -26,7 +27,6 @@ router.post("/register", async (req, res) => {
 
     } catch (err) {
         const errors = mapErrors(err);
-        console.log(errors)
         res.render("register", { data: req.body, errors });
     }
 })
