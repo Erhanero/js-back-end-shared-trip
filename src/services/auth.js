@@ -40,6 +40,7 @@ function createToken(user) {
         _id: user._id,
         email: user.email,
         gender: user.gender,
+        tripsHistory: user.tripsHistory
     }
 
     const token = jwt.sign(payload, SECRET_TOKEN);

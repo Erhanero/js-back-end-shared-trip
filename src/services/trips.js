@@ -1,4 +1,5 @@
 const Trip = require("../models/Trip");
+const User = require("../models/User");
 
 function create(trip) {
     Trip.create(trip);
@@ -10,7 +11,7 @@ function getAll() {
 }
 
 function getOneById(id) {
-    return Trip.findById(id).lean();
+    return Trip.findById(id).populate("creator").populate("buddies").lean();
 }
 
 function editTrip(id, trip) {
@@ -23,14 +24,27 @@ function deleteTrip(id) {
 
 async function joinTrip(tripId, userId) {
     const trip = await Trip.findById(tripId);
-    const user = await Trip.findById(userId);
-    // console.log(user)
-    user.tripsHistory.push(trip)
+    const user = await User.findById(userId);
+    user.tripsHistory.push(trip);
     await user.save();
     trip.buddies.push(user);
     trip.seats -= 1;
     await trip.save();
 
+}
+
+async function isJoined(tripId, userId) {
+    const trip = await Trip.findById(tripId).populate("buddies");
+    const result = trip.buddies.
+        map(x => x._id)
+        .some(x => x == userId);
+
+    return result;
+
+}
+
+function getUserById(id) {
+    return User.findById(id).populate("tripsHistory").lean();
 }
 
 
@@ -40,5 +54,7 @@ module.exports = {
     getOneById,
     editTrip,
     deleteTrip,
-    joinTrip
+    joinTrip,
+    isJoined,
+    getUserById
 }
