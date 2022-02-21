@@ -3,11 +3,11 @@ const { isGuest, isUser } = require("../middlewares/guards");
 const authService = require("../services/auth");
 const mapErrors = require("../utils/mapErrors");
 
-router.get("/login", (req, res) => {
+router.get("/login", isGuest, (req, res) => {
     res.render("login");
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", isGuest, async (req, res) => {
     try {
         const token = await authService.login(req.body.email, req.body.password);
         res.cookie("app-token", token, { httpOnly: true });
@@ -19,7 +19,7 @@ router.post("/login", async (req, res) => {
     }
 });
 
-router.get("/logout", (req, res) => {
+router.get("/logout", isUser, (req, res) => {
     res.clearCookie("app-token");
     res.redirect("/");
 });

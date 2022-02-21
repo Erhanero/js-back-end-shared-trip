@@ -4,11 +4,11 @@ const jwt = require("jsonwebtoken");
 const mapErrors = require("../utils/mapErrors");
 const { isGuest } = require("../middlewares/guards");
 
-router.get("/register", (req, res) => {
+router.get("/register", isGuest, (req, res) => {
     res.render("register");
 });
 
-router.post("/register", async (req, res) => {
+router.post("/register", isGuest, async (req, res) => {
     try {
 
         if (req.body.password.trim() == "") {
